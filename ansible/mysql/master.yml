@@ -24,8 +24,8 @@
     - name: Install MySQL
       apt: name=mysql-server update_cache=yes cache_valid_time=3600 state=present     
 
-    - name: copy cnf
-      copy: src=mysql.cnf.j2 dest=~/.my.cnf owner=ubuntu mode=0644
+ #   - name: copy cnf
+ #     copy: src=mysql.cnf.j2 dest=~/.my.cnf owner=ubuntu mode=0644
 
     - name: Start the MySQL service
       service: 
