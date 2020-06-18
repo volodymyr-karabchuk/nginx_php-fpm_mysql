@@ -1,0 +1,16 @@
+---
+- name: apt add repository php7.4-fpm
+  apt_repository: 
+    repo: ppa:ondrej/php
+
+- name: Install packages
+  apt: name={{ item }} state=latest
+  loop:
+    - php7.4-fpm 
+    - php7.4-mysql
+    - php7.4-bcmath
+    - php7.4-json
+    - php7.4-mbstring
+    - php7.4-tokenizer
+    - php7.4-xml
+    - php7.4-curl  

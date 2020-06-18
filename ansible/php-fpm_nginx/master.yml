@@ -1,0 +1,13 @@
+---
+- name: Install Nginx and php-fpm
+  hosts: all
+  become: yes
+  roles:
+    - common
+    - nginx
+    - php-fpm
+    - wordpress
+
+
+
+

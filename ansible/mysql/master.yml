@@ -1,0 +1,48 @@
+---
+- name: Install Mysql
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Update apt repo and cache
+      apt: update_cache=yes force_apt_get=yes 
+    - name: Upgrade all apt packages
+      apt: upgrade=dist force_apt_get=yes   
+
+    - name: Download file 
+      get_url:
+        url: https://dev.mysql.com/get/mysql-apt-config_0.8.10-1_all.deb
+        dest: /mysql8.deb   
+
+    - name: Install a .deb package
+      apt:
+        deb: /mysql8.deb
+
+    - name: Install MySQL
+      apt: name=python-mysqldb update_cache=yes cache_valid_time=3600 state=present
+
+    - name: Install MySQL
+      apt: name=mysql-server update_cache=yes cache_valid_time=3600 state=present     
+
+    - name: copy cnf
+      copy: src=mysql.cnf.j2 dest=~/.my.cnf owner=ubuntu mode=0644
+
+    - name: Start the MySQL service
+      service: 
+        name: mysql 
+        state: started
+        enabled: true
+      
+   # - name: Create a new database
+   #   mysql_db:
+    #    name: wordpress
+    #    state: present
+    #    encoding: utf8
+        
+
+    #- name: Create database user
+    #  mysql_user:
+    #    name: wordpress
+    #    password: 12345
+    #    priv: '*.*:ALL,GRANT'
+    #    state: present

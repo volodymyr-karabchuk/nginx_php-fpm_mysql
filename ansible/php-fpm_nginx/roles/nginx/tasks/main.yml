@@ -1,0 +1,9 @@
+---
+- name: Install packages
+  apt: name=nginx state=latest
+
+- name: Copy nginx.conf
+  template: src=nginx.conf dest=/etc/nginx/sites-available/default 
+
+- name: Start Nginx and boot
+  service: name=nginx state=restarted enabled=yes
